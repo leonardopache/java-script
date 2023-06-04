@@ -1,0 +1,166 @@
+openapi: "3.0.0"
+info:
+    version: "1.0.0"
+    title: "Todo-list"
+    description: API for management of Todo's
+
+servers:
+    - url: "http://localhost:3005"
+
+paths:
+    /todos:
+        get:
+            summary: Read all Todos
+            responses:
+                "200":
+                    description: all todos
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/TodoResponse"
+                404:
+                    description: Not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                500:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        post:
+            summary: Create new Todo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TodoRequest"
+                required: true
+            responses:
+                200:
+                    description: successful operation
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                $ref: "#/components/schemas/TodoResponse"
+                404:
+                    description: Not found
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                500:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+    /todos/{todoId}:
+        parameters:
+            - name: todoId
+              description: The unique identifier of Todo
+              in: path
+              required: true
+              schema:
+                  $ref: "#/components/schemas/TodoId"
+        get:
+            summary: Read a single Todo
+            responses:
+                "200":
+                    description: The Todo corresponding to the provided `todoId`
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/TodoResponse"
+                404:
+                    description: No Todo found for the provided `todoId`
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                500:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        delete:
+            summary: Delete a Todo
+            responses:
+                "200":
+                    description: Todo deleted
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/TodoResponse"
+                404:
+                    description: No todo found for the provided `todoId`
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                500:
+                    description: Unexpected error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+        put:
+            summary: Update a todo
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/TodoRequest"
+                required: true
+            responses:
+                default:
+                    description: successful operation
+components:
+    schemas:
+        TodoId:
+            description: The unique identifier of a TODO
+            type: string
+        TodoRequest:
+            type: object
+            required:
+                - title
+            properties:
+                title:
+                    type: string
+                description:
+                    type: string
+                status:
+                    type: string
+                    enum:
+                        - PENDING
+                        - DONE
+        TodoResponse:
+            type: object
+            properties:
+                id:
+                    type: string
+                title:
+                    type: string
+                description:
+                    type: string
+                status:
+                    type: string
+                    enum:
+                        - PENDING
+                        - DONE
+                createdAt:
+                    type: string
+                updatedAt:
+                    type: string
+        Error:
+            type: object
+            required:
+                - message
+            properties:
+                message:
+                    description: A human readable error message
+                    type: string
