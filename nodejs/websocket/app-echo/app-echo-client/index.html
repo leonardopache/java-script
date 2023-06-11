@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <title>Demo client - WebSocket</title>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="page-wrapper">
+      <h1>Websocket demo to echo the message</h1>
+
+      <div id="status">Connecting...</div>
+
+      <ul id="messages"></ul>
+
+      <form id="message-form" action="#" method="post">
+        <textarea
+          id="message"
+          placeholder="write something..."
+          required
+        ></textarea>
+        <button type="submit">Send menssage</button>
+        <button type="button" id="close">Close conn</button>
+      </form>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
