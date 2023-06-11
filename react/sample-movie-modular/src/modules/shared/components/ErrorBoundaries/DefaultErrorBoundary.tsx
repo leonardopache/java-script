@@ -15,7 +15,6 @@ export class DefaultErrorBoundary extends Component {
             // You can render any custom fallback UI
             return <p>{this.state.error}</p>;
         }
-
         return this.props.children;
     }
 }
