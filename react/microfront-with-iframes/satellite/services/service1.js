@@ -1,8 +1,8 @@
 export const getUsers = ({ source, trackingProperties }) => {
     const messageResponse = {
         response: {
-            name: 'Samuel Martins',
-            website: 'samuelmartins.me',
+            name: 'Leonardo Pache',
+            website: 'github.com/leonardopache',
         },
         trackingProperties,
     };
